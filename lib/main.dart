@@ -36,6 +36,12 @@ class _MyHomePageState extends State<MyHomePage> {
   String _apiText = '';
 
   @override
+  void initState(){
+    super.initState();
+    callAPI();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -57,5 +63,16 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+
+  void callAPI() async{
+    final response = await http
+      // get処理が時間かかるので、awaitをつけてこの行の処理が終えるまで次の行に行かないようにする
+      .get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
+    final body = response.body;
+
+    setState(() {
+      _apiText = body;
+    });
   }
 }
