@@ -81,8 +81,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ]
       }),
     );
-    final body = response.body;
-    final json = jsonDecode(body);
+    final body = response.bodyBytes;
+    final jsonString = utf8.decode(body);
+    final json = jsonDecode(jsonString);
     final choices = json['choices'];
     final content = choices[0]['message']['content'];
 
