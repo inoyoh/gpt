@@ -38,11 +38,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String? _apiText;
   final apiKey = '${API_KEY}';
+  String searchText = '';
 
   @override
   void initState(){
     super.initState();
-    callAPI();
+    // callAPI();
   }
 
   @override
@@ -72,6 +73,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
                 }),
             ),
+            TextField(
+              decoration: InputDecoration(
+                hintText: '検索したいテキスト',
+              ),
+              onChanged: (text) {
+                searchText = text;
+              },
+            ),
+            ElevatedButton(
+                onPressed: (){
+                  // 検索
+                  callAPI();
+                },
+                child: const Text('検索'),
+            )
           ],
         ),
       ),
@@ -89,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: jsonEncode(<String, dynamic>{
         "model": "gpt-3.5-turbo",
         "messages": [
-          {"role": "user", "content": "お薦めのスパゲティを３つ教えてください。"}
+          {"role": "user", "content": searchText}
         ]
       }),
     );
