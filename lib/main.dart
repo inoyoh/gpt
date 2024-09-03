@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../config.dart';
@@ -68,9 +70,20 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void callAPI() async{
-    final response = await http
+    final response = await http.post(
       // get処理が時間かかるので、awaitをつけてこの行の処理が終えるまで次の行に行かないようにする
-      .get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
+      Uri.parse('https://api.openai.com/v1/chat/completions'),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $apiKey',
+      },
+      body: jsonEncode(<String, dynamic>{
+        "model": "gpt-3.5-turbo",
+        "messages": [
+          { "role": "user","content": "緑色にあう色を3色選んでください。"},
+        ]
+      }),
+    );
     final body = response.body;
 
     setState(() {
