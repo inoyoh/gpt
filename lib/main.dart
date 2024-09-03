@@ -36,7 +36,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _apiText = '';
+  String? _apiText;
   final apiKey = '${API_KEY}';
 
   @override
@@ -52,20 +52,27 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  '$_apiText',
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
-            ],
-          ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Builder(builder: (context) {
+                  final text = _apiText;
+
+                  if (text == null){
+                    return Center(child: const CircularProgressIndicator());
+                  }
+                  return Text(
+                    text,
+                    style: TextStyle(
+                        fontSize: 16
+                    ),
+                  );
+                }),
+            ),
+          ],
         ),
       ),
     );
