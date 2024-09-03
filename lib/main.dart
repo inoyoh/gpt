@@ -56,12 +56,9 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
             Text(
               '$_apiText',
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: TextStyle(fontSize: 10),
             ),
           ],
         ),
@@ -80,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: jsonEncode(<String, dynamic>{
         "model": "gpt-3.5-turbo",
         "messages": [
-          { "role": "user","content": "緑色にあう色を3色選んでください。"},
+          {"role": "user", "content": "お薦めのスパゲティを３つ教えてください。"}
         ]
       }),
     );
