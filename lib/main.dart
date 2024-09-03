@@ -82,9 +82,12 @@ class _MyHomePageState extends State<MyHomePage> {
       }),
     );
     final body = response.body;
+    final json = jsonDecode(body);
+    final choices = json['choices'];
+    final content = choices[0]['message']['content'];
 
     setState(() {
-      _apiText = body;
+      _apiText = content;
     });
   }
 }
